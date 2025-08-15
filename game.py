@@ -2,7 +2,7 @@ import math
 import pygame
 import sys
 from settings import *
-from entities import Player, Player2, Enemy
+from entities import *
 
 class Game:
 

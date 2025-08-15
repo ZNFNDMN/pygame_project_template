@@ -16,87 +16,23 @@ class Game:
         self.time = 0.0
         self.clock = pygame.time.Clock() # Object to help track time
         self.running = True
-        self.dt = 0 #?
-
-        self.player = Player(self.window)
-        self.player2 = Player2(self.window)
-        self.collision_not_happened = False
-        self.enemy1 = Enemy(self.window, 0 + 200, 0 + 200)
-        self.enemy2 = Enemy(self.window, WINDOW_WIDTH, 0)
-        self.enemy3 = Enemy(self.window, 0, WINDOW_HEIGHT)
-        self.enemy4 = Enemy(self.window, WINDOW_WIDTH, WINDOW_HEIGHT)
+        self.dt = 0
 
     def handle_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
-            if not (event.type == pygame.APPMOUSEFOCUS) and self.time <=1: # Si le jeu n'a pas le focus
-                pygame.event.set_grab(True)  # Capture le curseur
-                pygame.mouse.set_visible(False)
-
-            if self.time > int(1): #Aprés 1 seconde de jeu le joueur 2 suit la souris
-                self.player2.position = list(pygame.mouse.get_pos())
 
     def update(self):
         self.time = pygame.time.get_ticks() / 1000  # temps écoulé en millisecondes depuis appel de pygame.init()
-
-        self.player.update(self.dt)
-        self.player2.update(self.dt)
 
         #Logique de jeu (collisions, score, etc.)
         self.check_collisions()
 
     def check_collisions(self):
         # Logique de collision
-        if Game.players_collide([self.player, self.player2]):
-            self.draw_players_collision()
-            self.change_player_direction()
-        else:
-            # réinitialiser valeurs modifiés pendant collision
-            self.reinitialize_after_collision()
 
-    @staticmethod
-    def players_collide(sprites):
-        #dx = self.player.position[0] - self.player2.position[0]
-        dx = sprites[0].position[0] -  sprites[1].position[0]
-        #dy = self.player.position[1] - self.player2.position[1]
-        dy = sprites[0].position[1] -  sprites[1].position[1]
-        distance = math.sqrt(dx ** 2 + dy ** 2)
 
-        #if distance <= self.player.radius + self.player2.radius: return True
-        if distance <= sprites[0].radius + sprites[1].radius: return True
-        else: return False
-
-    def draw_players_collision(self):
-        player = self.player
-        player2 = self.player2
-
-        player.color = player.collision_color
-        player2.color = player2.collision_color
-
-        # trouver point de collision entre 2 cercles
-        collision_point = self.find_collision_point_of_circles([player, player2])
-
-        # trouver le point opposé au point de collision
-        collision_opposite_point = self.find_collision_opposite_point_of_circles([player, player2])
-
-        # Dessiner un cercle plein autour du point de collision
-        pygame.draw.circle(self.window, color_palette['text'], (collision_point.x, collision_point.y), 5)
-
-        # Dessiner un cercle plein autour du point opposé au point de collision
-        pygame.draw.circle(self.window, color_palette['text'], (collision_opposite_point.x, collision_opposite_point.y), 5)
-
-        #lignes du point de collision
-        pygame.draw.line(self.window, color_palette['primary'], (collision_point.x, 0),
-                         (collision_point.x, WINDOW_HEIGHT), 1)
-        pygame.draw.line(self.window, color_palette['primary'], (0, collision_point.y), (WINDOW_WIDTH, collision_point.y),
-                         1)
-
-        # lignes du point opposé
-        pygame.draw.line(self.window, color_palette['text'], (collision_opposite_point.x, 0),
-                         (collision_opposite_point.x, WINDOW_HEIGHT), 1)
-        pygame.draw.line(self.window, color_palette['text'], (0, collision_opposite_point.y), (WINDOW_WIDTH, collision_opposite_point.y),
-                         1)
 
     def reinitialize_after_collision(self):
         self.player.color = self.player.normal_color
@@ -162,39 +98,10 @@ class Game:
         player.velocity.y = math.sin(Game.find_collision_opposite_point_angle([player, player2])) * player.speed_after_collision
 
     def draw(self):
-        player = self.player
-        player2 = self.player2
-        enemy1 = self.enemy1
-        enemy2 = self.enemy2
-        enemy3 = self.enemy3
-        enemy4 = self.enemy4
 
         self.window.fill(color_palette['background'])
 
         #self.check_collisions()  # si cette fonction est appelé ici les lignes horizontales et verticales s'affichent
-
-        player.draw()
-        player2.draw()
-        enemy1.draw()
-        enemy2.draw()
-        enemy3.draw()
-        enemy4.draw()
-
-        txt1 = self.font.render(f"player velocity x : {player.velocity.x}", True, color_palette['text'])
-        txt2 = self.font.render(f"player velocity y : {player.velocity.y}", True, color_palette['text'])
-        txt3 = self.font.render(f"player speed : {player.speed}", True, color_palette['text'])
-        txt4 = self.font.render(f"player position x : {player.position.x}", True, color_palette['text'])
-        txt5 = self.font.render(f"player position y : {player.position.y}", True, color_palette['text'])
-        txt6 = self.font.render(f"time : {self.time}", True, color_palette['text'])
-        txt7 = self.font.render(f"dt : {self.dt}", True, color_palette['text'])
-
-        #self.window.blit(txt1, (0,0))
-        #self.window.blit(txt2, (0,24))
-        #self.window.blit(txt3, (0,48))
-        #self.window.blit(txt4, (0,72))
-        #self.window.blit(txt5, (0,96))
-        #self.window.blit(txt6, (DISPLAY_WIDTH - 150,0))
-        #self.window.blit(txt7, (DISPLAY_WIDTH - 150,24))
 
         #self.all_sprites.draw(self.window)
         # Dessiner l'ui (score, vies, etc.)

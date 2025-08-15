@@ -18,7 +18,7 @@ FONT_SIZE = 24
 FPS = 60
 
 #Couleurs
-color_palette = OCEAN_CUSTOM
+color_palette = CLASSIC
 
 # Gameplay
 PLAYER_SPEED = 300

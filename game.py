@@ -31,8 +31,7 @@ class Game:
 
     def check_collisions(self):
         # Logique de collision
-
-
+        pass
 
     def reinitialize_after_collision(self):
         self.player.color = self.player.normal_color

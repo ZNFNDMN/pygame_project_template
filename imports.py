@@ -1,4 +1,4 @@
 import pygame
 import sys
-import settings
+from settings import *
 

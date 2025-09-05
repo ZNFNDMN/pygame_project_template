@@ -5,15 +5,13 @@ from imports import pygame
 pygame.init()
 
 # window setup
-screen_width_percentage = 1
-screen_height_percentage = 1
-
+screen_width_percentage = 0.8
+screen_height_percentage = 0.8
 WINDOW_WIDTH = pygame.display.Info().current_w * screen_width_percentage
 WINDOW_HEIGHT = pygame.display.Info().current_h * screen_height_percentage
 
 WINDOW_TITLE = "Game"
-
-FONT_SIZE = 24
+DEFAULT_FONT_SIZE = 24
 
 FPS = 60
 

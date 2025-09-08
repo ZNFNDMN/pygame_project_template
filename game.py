@@ -19,7 +19,7 @@ class Game:
 
         self.visual_helper = VisualHelper(self.window)
         #initialiser la grille de surfaces
-        self.visual_helper.create_surfaces_in_grid(8, 8)
+        self.visual_helper.create_surfaces_in_grid(30, 30)
 
         #couleurs des surfaces
         for i in range(len(self.visual_helper.surfaces)):
@@ -43,8 +43,8 @@ class Game:
         self.window.blit(self.background)
 
         # pour blit chaque surfaces (fonction a créer)
-        rows = 8
-        lines = 8
+        rows = 30
+        lines = 30
         row_width = self.WINDOW_WIDTH / rows
         line_height = self.WINDOW_HEIGHT / lines
         surface_index = 0

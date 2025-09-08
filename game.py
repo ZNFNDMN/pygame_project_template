@@ -22,9 +22,6 @@ class Game:
         self.surf_factory = PygameSurfaceFactory(self.window, 4,4)
         self.surf_factory.create_surfaces()
 
-        self.surf_factory2 = PygameSurfaceFactory(self.surf_factory.surf_list[4], 2, 2)
-        self.surf_factory2.create_surfaces()
-
     def handle_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -43,12 +40,10 @@ class Game:
         self.window.blit(self.background)
 
         self.surf_factory.blit_surfaces()
-        self.surf_factory2.blit_surfaces()
-
 
         self.visual_helper.draw_grid(4, 4)
-        self.visual_helper.draw_dots(20, 20)
-        self.visual_helper.draw_coordinate_fraction(20, 20, 24)
+        self.visual_helper.draw_dots(8, 8)
+        #self.visual_helper.draw_coordinate_fraction(8, 8, 24)
         # Dessiner l'ui (score, vies, etc.)
         pygame.display.flip()
 

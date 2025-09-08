@@ -1,5 +1,6 @@
 from imports import *
 #from entities import *
+from game_dev_tools import *
 
 class Game:
 
@@ -18,12 +19,11 @@ class Game:
         self.background.fill(color_palette['background'])
 
         self.visual_helper = VisualHelper(self.window)
-        #initialiser la grille de surfaces
-        self.visual_helper.create_surfaces_in_grid(30, 30)
+        self.surf_factory = PygameSurfaceFactory(self.window, 4,4)
+        self.surf_factory.create_surfaces()
 
-        #couleurs des surfaces
-        for i in range(len(self.visual_helper.surfaces)):
-            self.visual_helper.surfaces[i].fill((3*i%255,3*i%255,3*i%255))
+        self.surf_factory2 = PygameSurfaceFactory(self.surf_factory.surf_list[4], 2, 2)
+        self.surf_factory2.create_surfaces()
 
     def handle_events(self):
         for event in pygame.event.get():
@@ -42,26 +42,13 @@ class Game:
     def draw(self):
         self.window.blit(self.background)
 
-        # pour blit chaque surfaces (fonction a créer)
-        rows = 30
-        lines = 30
-        row_width = self.WINDOW_WIDTH / rows
-        line_height = self.WINDOW_HEIGHT / lines
-        surface_index = 0
+        self.surf_factory.blit_surfaces()
+        self.surf_factory2.blit_surfaces()
 
-        ###########
-        for row in range(rows):
-            for line in range(lines):
-                x = row * row_width
-                y = line * line_height
-                self.window.blit(self.visual_helper.surfaces[surface_index], (x, y))
-                surface_index += 1
 
-        #pygame.draw.circle(self.window,(255,255,255),(307, 172), 20)
-        self.visual_helper.blit_grid_surfaces()
         self.visual_helper.draw_grid(4, 4)
-        self.visual_helper.draw_dots(8, 8)
-        self.visual_helper.draw_coordinate_fraction(8, 8, 24)
+        self.visual_helper.draw_dots(20, 20)
+        self.visual_helper.draw_coordinate_fraction(20, 20, 24)
         # Dessiner l'ui (score, vies, etc.)
         pygame.display.flip()
 

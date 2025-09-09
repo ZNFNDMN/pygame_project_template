@@ -1,3 +1,4 @@
+from game_dev_tools.game_dev_tools import Circle
 from imports import *
 #from entities import *
 from game_dev_tools import *
@@ -22,6 +23,13 @@ class Game:
         self.surf_factory = PygameSurfaceFactory(self.window, 4,4)
         self.surf_factory.create_surfaces()
 
+        #############################################
+        sub_surf0  = self.surf_factory.surf_list[0]
+        sub_surf0_center = sub_surf0.get_rect().center
+        circle1 = Circle()
+        self.player = MovingEntity(sub_surf0,circle1, sub_surf0_center)
+        ###############################################
+
     def handle_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -44,6 +52,9 @@ class Game:
         self.visual_helper.draw_grid(4, 4)
         self.visual_helper.draw_dots(8, 8)
         #self.visual_helper.draw_coordinate_fraction(8, 8, 24)
+        ########################################
+        self.player.draw()
+        #####################################
         # Dessiner l'ui (score, vies, etc.)
         pygame.display.flip()
 

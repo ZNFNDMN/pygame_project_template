@@ -1,4 +1,4 @@
-from game_dev_tools.game_dev_tools import Circle
+from game_dev_tools.game_dev_tools import Circle, MovementSystem
 from imports import *
 #from entities import *
 from game_dev_tools import *
@@ -27,7 +27,7 @@ class Game:
         sub_surf0  = self.surf_factory.surf_list[0]
         sub_surf0_center = sub_surf0.get_rect().center
         circle1 = Circle()
-        self.player = MovingEntity(sub_surf0,circle1, sub_surf0_center)
+        self.player = Player(sub_surf0,circle1, (10,10))
         ###############################################
 
     def handle_events(self):
@@ -38,6 +38,8 @@ class Game:
     def update(self):
         self.time = pygame.time.get_ticks() / 1000  # temps écoulé en millisecondes depuis appel de pygame.init()
         #Logique de jeu (collisions, score, etc.)
+        self.player.update()
+
         self.check_collisions()
 
     def check_collisions(self):
@@ -45,16 +47,15 @@ class Game:
         pass
 
     def draw(self):
-        self.window.blit(self.background)
 
+        self.window.blit(self.background)
+        self.player.draw()
         self.surf_factory.blit_surfaces()
 
         self.visual_helper.draw_grid(4, 4)
         self.visual_helper.draw_dots(8, 8)
         #self.visual_helper.draw_coordinate_fraction(8, 8, 24)
-        ########################################
-        self.player.draw()
-        #####################################
+
         # Dessiner l'ui (score, vies, etc.)
         pygame.display.flip()
 

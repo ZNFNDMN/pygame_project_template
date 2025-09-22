@@ -44,24 +44,32 @@ class Game:
         ################################################################
         sub_surf2 = self.surf_factory.surf_list[2]
 
-        self.player3 = Player(sub_surf2, pygame.Vector2(sub_surf_center), Rectangle())
+        self.player3 = Player(sub_surf2, pygame.Vector2(sub_surf_center), Circle())
         self.player3.movement_system = KeyboardMovementSystem(self.player3, sub_surf2)
         self.player3.game_entity_appearence = PlayerAppearence([], self.player3)
-        self.player3.size=(60,60)
-        self.player3.color=(255,50,0)
+        self.player3.size=20
         self.player3.border_width = 1
         self.player3.speed=5
 
         ########################################################
         sub_surf1  = self.surf_factory.surf_list[1]
 
-        self.player4  = Player(sub_surf1,pygame.Vector2(sub_surf_center), Polygon())
+        self.player4  = Player(sub_surf1,pygame.Vector2(sub_surf_center), Circle())
         self.player4.movement_system = KeyboardMovementSystem(self.player4, sub_surf1)
-        self.player4.game_entity_appearence = PlayerAppearence([], self.player4)
-        self.player4.size = 40
+        self.player4.game_entity_appearence = PlayerAppearance4([], self.player4)
+        self.player4.size = 50
+        self.player4.border_width = 1
         self.player4.speed = 10
 
-        sub_surf0 = self.surf_factory.surf_list[0]
+        ##########################################################
+        sub_surf3 = self.surf_factory.surf_list[3]
+
+        self.player5 = Player(sub_surf3, pygame.Vector2(sub_surf_center), Circle())
+        self.player5.game_entity_appearence = PlayerAppearance5([], self.player5)
+        self.player5.size = 50
+        self.player5.border_width = 1
+
+        # initialisation des Enemis qui se déplacent autour de l'écran
         self.procedural_enemy_factory = ProceduralEnemyFactory(sub_surf0)
 
     def handle_events(self):
@@ -77,7 +85,8 @@ class Game:
         self.player.update()
         #self.player2.update()
         self.player3.update()
-        #self.player4.update()
+        self.player4.update()
+        #self.player5.update()
 
         self.check_collisions()
 
@@ -90,16 +99,15 @@ class Game:
         self.player.draw()
         # self.player2.draw()
         self.player3.draw()
-        #self.player4.draw()
+        self.player4.draw()
+        self.player5.draw()
+
         self.procedural_enemy_factory.rotate_around_surface()
 
         self.surf_factory.blit_surfaces()
         # Dessine sur window
-        self.visual_helper.draw_dots(4, 4)
+        #self.visual_helper.draw_dots(4, 4)
         self.visual_helper.draw_grid(2, 2)
-
-        #pygame.draw.circle(self.window,(255,255,255), pygame.mouse.get_pos(), 20)
-        #self.visual_helper.draw_coordinate_fraction(8, 8, 24)
 
         # Dessiner l'ui (score, vies, etc.)
         pygame.display.flip()

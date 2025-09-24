@@ -12,6 +12,7 @@ class PlayerProjectileMovementSystem(MovementSystem):
         self.keep_on_screen()
 
         game_entity.pos += game_entity.velocity * game_entity.speed
+        game_entity.rect.center = game_entity.pos
 
     def keep_on_screen(self):
         game_entity = self.game_entity

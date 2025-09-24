@@ -37,7 +37,7 @@ class Game:
 
         window_center = pygame.Vector2(self.window.get_rect().center)
 
-        self.player = Player(self.window,pygame.Vector2(0,0),Circle())
+        self.player = Player(self.window,pygame.Vector2(0,0))
         self.player.movement_system = MouseMovementSystem(self.player, self.window)
         self.player.game_entity_appearance = PlayerAppearance8([], self.player)
         self.player.radius = 100
@@ -53,7 +53,7 @@ class Game:
         self.player.border_width = 1
         self.game_entities.append(self.player)
 
-        self.player_projectile = PlayerProjectile(self.window, window_center, Circle())
+        self.player_projectile = PlayerProjectile(self.window, window_center)
         self.player_projectile.movement_system = PlayerProjectileMovementSystem(self.player_projectile, self.window)
         self.player_projectile.game_entity_appearance = PlayerProjectileAppearance([],self.player_projectile)
         self.player_projectile.radius= 50
@@ -63,7 +63,8 @@ class Game:
 
         pp_radius = self.player_projectile.radius
         pp_pos = self.player_projectile.pos
-        self.player_projectile.rect = pygame.Rect(pp_pos, (pp_radius*2, pp_radius*2))
+        width_height = (pp_radius * 2, pp_radius * 2)
+        self.player_projectile.rect = pygame.Rect(pp_pos, width_height)
         self.player_projectile.rect.center = pp_pos
 
         # self.player_projectile.central_shape.rect = pygame.Rect(pp_pos, (pp_radius*2, pp_radius*2))
@@ -92,6 +93,8 @@ class Game:
     def check_collisions(self):
         # Logique de collision
         # if pygame.sprite.collide_circle(self.player.central_shape, self.player_projectile.central_shape):
+        print(f" player rect : {self.player.rect}")
+        print(f" player projectile rect : {self.player_projectile.rect}")
         if pygame.sprite.collide_circle(self.player, self.player_projectile):
             collision_vector = self.player_projectile.pos - self.player.pos
             current_speed = self.player_projectile.velocity.length()

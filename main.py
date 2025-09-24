@@ -1,4 +1,4 @@
-from game_template import Game
+from first_game_draft import Game
 
 game = Game()
 

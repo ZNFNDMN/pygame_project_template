@@ -50,8 +50,6 @@ class Enemy(pygame.sprite.Sprite):
             pygame.draw.circle(self.screen, self.little_circles_color, (x, y), self.little_circles_radius, 1)
             angle += math.pi / 8
 
-
-
 # class Enemy2(pygame.sprite.Sprite):
 #     def __init__(self, window:pygame.Surface):
 #         super().__init__()

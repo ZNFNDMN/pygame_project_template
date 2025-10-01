@@ -49,6 +49,9 @@ class Game:
     def draw(self):
         self.window.blit(self.background)
 
+        # ne pas oublier de remplir les surfaces avec fill avant de dessiner
+        # self.surf_factory.fill_surfaces()
+
         for i in range(len(self.game_entities)):
             self.game_entities[i].draw()
 

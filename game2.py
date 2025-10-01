@@ -28,7 +28,7 @@ class Game:
         sub_surf0  = self.surf_factory.surf_list[0]
         sub_surf_center = sub_surf0.get_rect().center
 
-        self.player = Player(sub_surf0,pygame.Vector2(sub_surf_center), Circle())
+        self.player = Player(sub_surf0,pygame.Vector2(sub_surf_center))
         self.game_entities.append(self.player)
         self.player.movement_system = KeyboardMovementSystem(self.player, sub_surf0) #passer l'instance de player pour pouvoir modif la position
         self.player.game_entity_appearence = PlayerAppearance6([], self.player)

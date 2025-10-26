@@ -6,7 +6,7 @@ class PlayerProjectileMovementSystem(MovementSystem):
     def __init__(self, game_entity, surface):
         super().__init__(game_entity, surface)
 
-    def move(self):
+    def move(self,dt):
         game_entity = self.game_entity
 
         self.keep_on_screen()

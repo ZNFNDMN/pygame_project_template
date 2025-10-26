@@ -4,7 +4,7 @@ from settings import WINDOW_WIDTH, WINDOW_HEIGHT
 
 class PlayerProjectileAppearance(GameEntityAppearance):
     def __init__(self, shapes: list, game_entity):
-        super().__init__(shapes, game_entity)
+        super().__init__(shapes)
         self.game_entity=game_entity
 
     def draw(self):

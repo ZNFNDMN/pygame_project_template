@@ -38,6 +38,7 @@ class Game:
         window_center = pygame.Vector2(self.window.get_rect().center)
 
         self.player = Player(self.window,pygame.Vector2(0,0))
+        print(self.window)
         self.player.movement_system = MouseMovementSystem(self.player, self.window)
         self.player.game_entity_appearance = PlayerAppearance8([], self.player)
         self.player.radius = 100
@@ -86,15 +87,15 @@ class Game:
         #self.surf_factory.fill_surfaces()
 
         for i in range(len(self.game_entities)):
-            self.game_entities[i].update()
+            self.game_entities[i].update(self.dt)
 
         self.check_collisions()
 
     def check_collisions(self):
         # Logique de collision
         # if pygame.sprite.collide_circle(self.player.central_shape, self.player_projectile.central_shape):
-        print(f" player rect : {self.player.rect}")
-        print(f" player projectile rect : {self.player_projectile.rect}")
+        #print(f" player rect : {self.player.rect}")
+        #print(f" player projectile rect : {self.player_projectile.rect}")
         if pygame.sprite.collide_circle(self.player, self.player_projectile):
             collision_vector = self.player_projectile.pos - self.player.pos
             current_speed = self.player_projectile.velocity.length()

@@ -38,7 +38,6 @@ class Game:
         window_center = pygame.Vector2(self.window.get_rect().center)
 
         self.player = Player(self.window,pygame.Vector2(0,0))
-        print(self.window)
         self.player.movement_system = MouseMovementSystem(self.player, self.window)
         self.player.game_entity_appearance = PlayerAppearance8([], self.player)
         self.player.radius = 100
@@ -81,13 +80,13 @@ class Game:
             if event.type == pygame.QUIT:
                 self.running = False
 
-    def update(self):
+    def update(self,dt):
         self.time = pygame.time.get_ticks() / 1000  # temps écoulé en millisecondes depuis appel de pygame.init()
         #Logique de jeu (collisions, score, etc.)
         #self.surf_factory.fill_surfaces()
 
-        for i in range(len(self.game_entities)):
-            self.game_entities[i].update(self.dt)
+        for entity in self.game_entities:
+            entity.update(self.dt)
 
         self.check_collisions()
 
@@ -133,7 +132,7 @@ class Game:
         while self.running:
             self.dt = self.clock.tick(FPS) / 1000.0
             self.handle_events()
-            self.update()
+            self.update(self.dt)
             self.draw()
 
         pygame.quit()

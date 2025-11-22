@@ -56,7 +56,7 @@ class Game:
         self.surf_factory.fill_surfaces()
 
         for entity in self.game_entities:
-            entity.update()
+            entity.update(self.dt)
 
         # faire le tri dans les stacks de collision, garder les animations qui sont activées
         # pour ne pas faire dans draw if animation.alive: animation.draw
